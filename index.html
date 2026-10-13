@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111b">
+  <meta name="description" content="A local-first digital factory twin. Inject a disruption, replan production, and compare recovery strategies.">
+  <title>SHIFT — Factory Twin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="SHIFT Factory Twin home"><span class="brand-mark">S</span><span>SHIFT<span class="brand-slash"> /</span><small>FACTORY TWIN</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list">
+        <a class="nav-item active" href="#overview"><span class="nav-icon">◫</span> Factory floor</a>
+        <a class="nav-item" href="#timeline"><span class="nav-icon">⌁</span> Production</a>
+        <a class="nav-item" href="#scenarios"><span class="nav-icon">◉</span> Scenarios</a>
+        <a class="nav-item" href="#machines"><span class="nav-icon">◇</span> Machines</a>
+        <a class="nav-item" href="#orders"><span class="nav-icon">▤</span> Orders</a>
+        <a class="nav-item" href="#analytics"><span class="nav-icon">⌗</span> Analytics</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="local-card"><span class="local-pulse"></span><div><b>Local simulation</b><small>No account or API key</small></div></div>
+        <a class="nav-item" href="#help"><span class="nav-icon">?</span> About this demo</a>
+        <div class="user-chip"><div class="avatar">N</div><span>Nishant<small>Personal workspace</small></span><span class="more">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Workspace</span><i>/</i><strong>Factory floor</strong></div>
+        <div class="topbar-right"><span class="live-indicator"><span></span> SIMULATION LIVE</span><span class="top-separator"></span><button class="icon-button" aria-label="Notifications">♧<em></em></button><div class="avatar top-avatar">N</div></div>
+      </header>
+
+      <section class="page-intro">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> DIGITAL TWIN <span class="eyebrow-dot">·</span> PLANT 04</div>
+          <h1>See the shift.<br><span>Before it happens.</span></h1>
+          <p class="intro-copy">A living model of your production floor. Test a disruption, then watch the plan adapt.</p>
+        </div>
+        <div class="intro-actions">
+          <button class="button button-quiet" id="compareButton"><span class="compare-icon">⇄</span> Compare plans</button>
+          <button class="button button-primary" id="openDisruption"><span class="plus">＋</span> Inject disruption</button>
+        </div>
+      </section>
+
+      <section class="command-strip" aria-label="Current simulation status">
+        <div class="strip-state"><span class="state-orb"></span><div><b id="scenarioTitle">Baseline scenario</b><small id="scenarioSubtitle">All production lines operating normally</small></div></div>
+        <div class="strip-details"><span class="mono-label">SHIFT 02</span><span class="strip-divider"></span><span id="clockReadout">14:27:36</span><span class="strip-divider"></span><span class="mono-label">SIM SPEED</span><button class="speed-control" id="speedButton">1× <span>⌄</span></button><button class="play-button" id="playButton" aria-label="Pause simulation">Ⅱ</button></div>
+      </section>
+
+      <section class="workspace-grid">
+        <article class="factory-panel panel">
+          <div class="panel-heading">
+            <div><span class="section-kicker">LIVE FLOOR MODEL</span><h2>Plant 04 <span class="heading-muted">/ Assembly &amp; finishing</span></h2></div>
+            <div class="floor-tools"><span class="machine-count"><i class="tiny-dot green"></i> 8 active <i class="tiny-dot amber"></i> 1 at risk</span><button class="square-tool" aria-label="Expand factory floor">⤢</button></div>
+          </div>
+          <div class="factory-stage" id="factoryStage">
+            <div class="stage-grid"></div>
+            <div class="stage-vignette"></div>
+            <svg class="factory-art" viewBox="0 0 1000 590" role="img" aria-label="Isometric digital twin of a factory production floor">
+              <defs>
+                <linearGradient id="floorTop" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#172c3b"/><stop offset="1" stop-color="#0e202c"/></linearGradient>
+                <linearGradient id="machineTop" x2="0.9" y2="1"><stop stop-color="#7891a0"/><stop offset="1" stop-color="#3d5666"/></linearGradient>
+                <linearGradient id="machineFace" x2="0" y2="1"><stop stop-color="#354e5e"/><stop offset="1" stop-color="#1e3442"/></linearGradient>
+                <linearGradient id="warningTop" x2="1" y2="1"><stop stop-color="#c88748"/><stop offset="1" stop-color="#805330"/></linearGradient>
+                <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <pattern id="floorLines" width="46" height="46" patternTransform="skewY(-30) scale(1, .87)" patternUnits="userSpaceOnUse"><path d="M 46 0 L 0 0 0 46" fill="none" stroke="#90b3c0" stroke-opacity=".07" stroke-width="1"/></pattern>
+              </defs>
+              <polygon points="500,48 940,276 500,508 60,276" fill="url(#floorTop)" stroke="#456171" stroke-opacity=".54" stroke-width="2"/>
+              <polygon points="500,48 940,276 500,508 60,276" fill="url(#floorLines)" opacity=".95"/>
+              <path d="M118 278 L500 477 L882 278" fill="none" stroke="#d2a05e" stroke-opacity=".34" stroke-width="4" stroke-dasharray="8 8"/>
+              <path d="M152 265 L487 439 Q512 452 536 438 L820 285" fill="none" stroke="#243d4c" stroke-width="27" stroke-linecap="round"/>
+              <path d="M152 265 L487 439 Q512 452 536 438 L820 285" fill="none" stroke="#87b8c5" stroke-opacity=".28" stroke-width="4" stroke-dasharray="7 11"/>
+              <path class="route-glow" d="M276 211 L419 283 L508 326 L650 252 L756 307" fill="none" stroke="#47d7d1" stroke-opacity=".18" stroke-width="26" filter="url(#glow)"/>
+              <path class="route-line" d="M276 211 L419 283 L508 326 L650 252 L756 307" fill="none" stroke="#4ce0d3" stroke-width="3" stroke-dasharray="8 9"/>
+              <path class="replan-route" d="M276 211 L370 260 L462 217 L602 290 L756 307" fill="none" stroke="#55e5dc" stroke-width="4" stroke-dasharray="10 8"/>
+              <g class="machine machine-cnc" id="machineCnc" transform="translate(400 160)">
+                <polygon points="0,48 86,4 168,47 82,94" fill="url(#machineTop)" stroke="#a5bac2" stroke-opacity=".55"/>
+                <polygon points="0,48 82,94 82,177 0,130" fill="#273f4d" stroke="#607b88" stroke-opacity=".4"/>
+                <polygon points="82,94 168,47 168,128 82,177" fill="url(#machineFace)" stroke="#607b88" stroke-opacity=".4"/>
+                <polygon points="34,50 83,25 132,50 83,76" fill="#172833" stroke="#84a1ae" stroke-opacity=".5"/>
+                <path d="M83 76v56m-22-12 22 12 25-13" fill="none" stroke="#8aa7b2" stroke-width="3"/>
+                <rect x="108" y="82" width="24" height="10" rx="3" fill="#ff795f" class="machine-light"/>
+                <text x="81" y="202" text-anchor="middle" class="svg-machine-label">CNC-04</text>
+              </g>
+              <g class="machine" transform="translate(214 218)">
+                <polygon points="0,30 55,2 109,30 54,59" fill="url(#machineTop)"/><polygon points="0,30 54,59 54,111 0,82" fill="#243e4c"/><polygon points="54,59 109,30 109,82 54,111" fill="url(#machineFace)"/><rect x="68" y="55" width="17" height="7" rx="2" fill="#49dfb3"/><text x="54" y="132" text-anchor="middle" class="svg-machine-label">CNC-02</text>
+              </g>
+              <g class="machine" transform="translate(588 126)">
+                <polygon points="0,34 62,2 122,34 61,67" fill="url(#machineTop)"/><polygon points="0,34 61,67 61,119 0,86" fill="#243e4c"/><polygon points="61,67 122,34 122,86 61,119" fill="url(#machineFace)"/><rect x="77" y="62" width="17" height="7" rx="2" fill="#49dfb3"/><text x="61" y="140" text-anchor="middle" class="svg-machine-label">ASSEMBLY A</text>
+              </g>
+              <g class="machine" transform="translate(670 337)">
+                <polygon points="0,28 53,1 107,28 54,57" fill="url(#machineTop)"/><polygon points="0,28 54,57 54,102 0,73" fill="#243e4c"/><polygon points="54,57 107,28 107,73 54,102" fill="url(#machineFace)"/><rect x="67" y="52" width="16" height="7" rx="2" fill="#49dfb3"/><text x="54" y="122" text-anchor="middle" class="svg-machine-label">PACKAGING</text>
+              </g>
+              <g class="machine" transform="translate(250 365)">
+                <polygon points="0,25 47,1 96,25 48,51" fill="url(#machineTop)"/><polygon points="0,25 48,51 48,91 0,65" fill="#243e4c"/><polygon points="48,51 96,25 96,65 48,91" fill="url(#machineFace)"/><rect x="61" y="47" width="15" height="6" rx="2" fill="#49dfb3"/><text x="48" y="111" text-anchor="middle" class="svg-machine-label">INSPECTION</text>
+              </g>
+              <g class="machine" transform="translate(760 211)">
+                <polygon points="0,24 46,0 94,24 47,50" fill="url(#machineTop)"/><polygon points="0,24 47,50 47,87 0,61" fill="#243e4c"/><polygon points="47,50 94,24 94,61 47,87" fill="url(#machineFace)"/><rect x="60" y="46" width="14" height="6" rx="2" fill="#49dfb3"/><text x="47" y="106" text-anchor="middle" class="svg-machine-label">PAINT</text>
+              </g>
+              <g class="robot-arm" transform="translate(517 355)"><ellipse cx="0" cy="18" rx="23" ry="12" fill="#284654"/><path d="M-2 14l18-37 18 10-11 25 29 10-8 15-43-12z" fill="#d7a353" stroke="#ffe0a2" stroke-opacity=".4" stroke-width="2"/><circle cx="17" cy="-23" r="8" fill="#edbd6b"/><circle cx="44" cy="25" r="6" fill="#ecbd6f"/><path d="M51 22l8-11" stroke="#ecbd6f" stroke-width="5" stroke-linecap="round"/></g>
+              <g class="robot-arm robot-arm-two" transform="translate(328 285) scale(.72)"><ellipse cx="0" cy="18" rx="23" ry="12" fill="#284654"/><path d="M-2 14l18-37 18 10-11 25 29 10-8 15-43-12z" fill="#d7a353" stroke="#ffe0a2" stroke-opacity=".4" stroke-width="2"/><circle cx="17" cy="-23" r="8" fill="#edbd6b"/><circle cx="44" cy="25" r="6" fill="#ecbd6f"/><path d="M51 22l8-11" stroke="#ecbd6f" stroke-width="5" stroke-linecap="round"/></g>
+              <g class="floor-tag tag-cnc" id="cncTag" transform="translate(415 119)"><rect width="124" height="34" rx="8"/><circle cx="15" cy="17" r="4"/><text x="27" y="21">CNC-04 · WATCH</text></g>
+              <g class="floor-tag tag-reroute" transform="translate(531 279)"><rect width="125" height="32" rx="8"/><text x="62" y="21" text-anchor="middle">REROUTED JOBS</text></g>
+              <g class="floor-tag tag-order" transform="translate(770 355)"><rect width="120" height="32" rx="8"/><text x="60" y="21" text-anchor="middle">RUSH ORDER · 180</text></g>
+              <g class="spark spark-a"><circle cx="476" cy="250" r="3"/><circle cx="496" cy="261" r="2"/><circle cx="460" cy="270" r="2"/></g>
+            </svg>
+            <div class="floor-alert" id="floorAlert"><span class="alert-symbol">!</span><span><b>CNC-04 offline</b><small>42 min · jobs rerouted</small></span><span class="alert-chevron">↗</span></div>
+            <div class="stage-legend"><span><i class="legend-dot dot-ok"></i> Running</span><span><i class="legend-dot dot-warn"></i> At risk</span><span><i class="legend-line"></i> Job flow</span></div>
+            <div class="zoom-control"><button aria-label="Zoom out" id="zoomOut">−</button><span id="zoomLabel">100%</span><button aria-label="Zoom in" id="zoomIn">＋</button></div>
+            <div class="floor-caption"><span class="caption-pip"></span> DIGITAL TWIN · UPDATED JUST NOW</div>
+          </div>
+          <div class="factory-footer"><div><span class="tiny-dot green"></span> Line utilization <b id="utilization">78%</b></div><div><span class="tiny-dot cyan"></span> Output <b id="outputRate">186 units / hr</b></div><div><span class="tiny-dot amber"></span> Open orders <b>12</b></div><button class="text-button" id="centerView">Center view <span>↗</span></button></div>
+        </article>
+
+        <aside class="side-stack">
+          <article class="recovery-panel panel" id="scenarios">
+            <div class="panel-heading compact-heading"><div><span class="section-kicker">LOCAL PLANNER <span class="agent-dot"></span></span><h2>Recovery plan</h2></div><span class="recommend-badge">SIMULATED</span></div>
+            <p class="plan-summary" id="planSummary">No disruption active. The baseline schedule is stable across all production lines.</p>
+            <ol class="plan-steps" id="planSteps">
+              <li class="plan-step"><span class="step-number">1</span><div><b>Monitor machine health</b><small>All critical stations reporting nominal.</small></div><span class="step-time">NOW</span></li>
+              <li class="plan-step"><span class="step-number">2</span><div><b>Keep current job sequence</b><small>No downstream bottlenecks detected.</small></div><span class="step-time">—</span></li>
+              <li class="plan-step"><span class="step-number">3</span><div><b>Hold capacity buffer</b><small>Reserve one assembly lane for recovery.</small></div><span class="step-time">READY</span></li>
+            </ol>
+            <div class="plan-actions"><button class="button button-primary apply-button" id="applyPlan"><span>▶</span> Run baseline</button><button class="button button-outline" id="replanButton">Replan <span>↻</span></button></div>
+            <div class="plan-footnote"><span class="info-icon">i</span><span>Suggestions are simulated. Review changes before applying to a real system.</span></div>
+          </article>
+          <article class="scenario-card panel" id="orders">
+            <div class="scenario-card-top"><span class="section-kicker">UP NEXT</span><button class="more-button" aria-label="More scenario options">···</button></div>
+            <div class="next-order"><span class="order-icon">↗</span><div><b>Rush order · 180 units</b><small>Priority 1 <span>·</span> Due in 6h</small></div><span class="order-status">ON TRACK</span></div>
+            <div class="order-progress"><span></span></div>
+            <div class="order-meta"><span>Order #1048</span><span>72% complete</span></div>
+          </article>
+        </aside>
+      </section>
+
+      <section class="timeline-panel panel" id="timeline">
+        <div class="timeline-header"><div><span class="section-kicker">SHIFT 02 <span class="eyebrow-dot">·</span> MONDAY, APRIL 22</span><h2>Production timeline</h2></div><div class="timeline-controls"><button class="timeline-filter" id="lineFilter">All lines <span>⌄</span></button><span class="timeline-range">13:00 — 22:00</span><button class="square-tool" aria-label="Timeline settings">☷</button></div></div>
+        <div class="timeline-scroll"><div class="timeline-grid" id="timelineGrid">
+          <div class="time-axis"><span>13:00</span><span>14:00</span><span>15:00</span><span>16:00</span><span>17:00</span><span>18:00</span><span>19:00</span><span>20:00</span><span>21:00</span><span>22:00</span></div>
+          <div class="time-now"><span>NOW 14:27</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>CNC-01</b><span class="job-block" style="--left:4%;--width:15%">JOB-1007</span><span class="job-block muted-block" style="--left:20%;--width:10%"></span><span class="job-block" style="--left:35%;--width:20%">JOB-1018</span><span class="job-block blue-block" style="--left:67%;--width:20%">JOB-1024</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>CNC-02</b><span class="job-block" style="--left:10%;--width:14%">JOB-1001</span><span class="job-block amber-block" style="--left:34%;--width:14%">JOB-1011</span><span class="job-block blue-block" style="--left:69%;--width:19%">JOB-1021</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>CNC-03</b><span class="job-block" style="--left:7%;--width:16%">JOB-1006</span><span class="job-block blue-block" style="--left:36%;--width:17%">JOB-1019</span><span class="job-block" style="--left:84%;--width:12%">JOB-1025</span></div>
+          <div class="timeline-row row-cnc" id="cncTimelineRow"><b><i class="tiny-dot amber"></i>CNC-04</b><span class="job-block outage-block" id="outageBlock" style="--left:24%;--width:18%">DOWN · 42 min</span><span class="job-block reroute-block" id="rerouteBlock" style="--left:43%;--width:25%">REROUTED JOBS</span><span class="job-block blue-block" style="--left:71%;--width:14%">JOB-1028</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>Assembly A</b><span class="job-block" style="--left:2%;--width:16%">JOB-1003</span><span class="job-block amber-block" style="--left:30%;--width:17%">JOB-1012</span><span class="job-block blue-block" style="--left:55%;--width:15%">JOB-1020</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>Assembly B</b><span class="job-block" style="--left:9%;--width:18%">JOB-1004</span><span class="job-block blue-block" style="--left:33%;--width:23%">JOB-1016</span><span class="job-block amber-block" style="--left:68%;--width:21%">JOB-1023</span></div>
+          <div class="timeline-row"><b><i class="tiny-dot green"></i>Packaging</b><span class="job-block" style="--left:7%;--width:16%">JOB-1005</span><span class="job-block blue-block" style="--left:41%;--width:20%">JOB-1017</span><span class="job-block" style="--left:73%;--width:18%">JOB-1026</span></div>
+        </div></div>
+        <div class="timeline-bottom"><span><i class="tiny-dot blue"></i> Scheduled <i class="tiny-dot amber"></i> Priority <i class="tiny-dot red"></i> Disruption</span><button class="text-button" id="viewFullTimeline">View full schedule <span>↗</span></button></div>
+      </section>
+
+      <section class="metrics-section" id="analytics">
+        <div class="metrics-title"><div><span class="section-kicker">SCENARIO OUTCOME</span><h2>Key metrics <span id="metricMode">vs. current plan</span></h2></div><span class="metric-note"><span class="check-mark">✓</span> Updated with each replan</span></div>
+        <div class="metrics-grid">
+          <article class="metric-card metric-throughput"><div class="metric-top"><span>Throughput</span><span class="metric-icon">▥</span></div><div class="metric-value"><b id="metricThroughput">186</b><small>units / hour</small></div><div class="metric-foot"><span class="metric-change up" id="throughputChange">↑ 0%</span><span>vs. current plan</span><svg viewBox="0 0 100 28" aria-hidden="true"><path d="M1 24L15 18 28 21 42 11 54 16 67 7 80 12 99 3"/></svg></div></article>
+          <article class="metric-card metric-recovery"><div class="metric-top"><span>Recovery time</span><span class="metric-icon">◷</span></div><div class="metric-value"><b id="metricRecovery">—</b><small id="recoveryUnit">minutes</small></div><div class="metric-foot"><span class="metric-change down" id="recoveryChange">No active event</span><span>to stable output</span><svg viewBox="0 0 100 28" aria-hidden="true"><path d="M1 4L15 8 28 6 42 13 54 10 67 19 80 17 99 25"/></svg></div></article>
+          <article class="metric-card metric-idle"><div class="metric-top"><span>Machine idle time</span><span class="metric-icon">⌛</span></div><div class="metric-value"><b id="metricIdle">28</b><small>min / shift</small></div><div class="metric-foot"><span class="metric-change down" id="idleChange">Baseline</span><span>across all lines</span><svg viewBox="0 0 100 28" aria-hidden="true"><path d="M1 6L15 11 28 8 42 15 54 13 67 19 80 15 99 25"/></svg></div></article>
+          <article class="metric-card metric-orders"><div class="metric-top"><span>Orders on time</span><span class="metric-icon">◷</span></div><div class="metric-value"><b id="metricOrders">12<span class="metric-denom">/12</span></b><small>active orders</small></div><div class="metric-foot"><span class="metric-change up" id="ordersChange">100%</span><span>service level</span><svg viewBox="0 0 100 28" aria-hidden="true"><path d="M1 23L15 21 28 18 42 20 54 12 67 13 80 7 99 4"/></svg></div></article>
+        </div>
+      </section>
+
+      <section class="premium-banner" id="premium">
+        <div class="premium-mark">✦</div><div><span class="premium-eyebrow">SHIFT INTELLIGENCE <span>PREMIUM</span></span><h3>Explore a deeper planning layer.</h3><p>Natural-language scenarios, multi-agent recovery strategies, and longer-horizon what-if analysis.</p></div><button class="premium-button" id="premiumButton">See premium features <span>↗</span></button><span class="premium-glow"></span>
+      </section>
+
+      <footer class="app-footer"><span>SHIFT FACTORY TWIN <i>·</i> SIMULATION ONLY</span><span>Built for transparent production planning <span class="footer-spark">✳</span></span><a href="#help" id="aboutLink">How this works ↗</a></footer>
+    </main>
+  </div>
+
+  <dialog class="modal" id="disruptionDialog">
+    <form method="dialog" class="modal-card" id="disruptionForm">
+      <button class="modal-close" aria-label="Close">×</button><span class="modal-icon">⚡</span><span class="section-kicker">SCENARIO LAB</span><h2>What changed on the floor?</h2><p>Choose an event to inject into the digital twin. The planner will build a recovery sequence around it.</p>
+      <label class="field-label" for="eventType">DISRUPTION TYPE</label><select id="eventType"><option value="machine">Machine outage · CNC-04 offline</option><option value="rush">Rush order · 180 units due in 6h</option><option value="supplier">Material delay · 90 min inbound slip</option></select>
+      <div class="event-impact" id="eventImpact"><span class="impact-dot"></span><span><b>Estimated impact</b><small>3 jobs at risk · 42 min recovery window</small></span><span>!</span></div>
+      <div class="modal-actions"><button class="button button-quiet" value="cancel">Cancel</button><button class="button button-primary" type="button" id="confirmDisruption">Inject &amp; replan <span>→</span></button></div>
+      <small class="modal-note">This changes the simulated scenario only. No factory system is connected.</small>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="premiumDialog">
+    <form method="dialog" class="modal-card premium-modal">
+      <button class="modal-close" aria-label="Close">×</button><span class="modal-icon premium-modal-icon">✦</span><span class="section-kicker">OPTIONAL PAID TIER</span><h2>More planning depth, when you need it.</h2><p>The current simulator is free and runs in your browser. Premium is a locked extension for a paid model connection you choose to configure.</p>
+      <ul class="premium-list"><li><span>✦</span> Translate plain-language changes into constraints</li><li><span>✦</span> Compare independent machine-agent strategies</li><li><span>✦</span> Generate evidence-linked recovery explanations</li><li><span>✦</span> Explore longer multi-shift scenarios</li></ul>
+      <div class="premium-lock"><span>⌑</span><div><b>Locked in this free demo</b><small>No API key is used and no paid model calls are made.</small></div></div>
+      <button class="button button-primary modal-done" value="close">Got it</button>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="aboutDialog">
+    <form method="dialog" class="modal-card">
+      <button class="modal-close" aria-label="Close">×</button><span class="section-kicker">ABOUT THE MODEL</span><h2>A simulator, not a live factory.</h2><p>SHIFT is a digital-twin concept using a small, deterministic production model. Machine states, job durations, and scenario outcomes are illustrative and run locally in your browser.</p><div class="about-stat"><b>FREE CORE</b><span>Rule-based constraints and a local schedule optimizer.</span></div><div class="about-stat"><b>PREMIUM HOOK</b><span>Optional paid-model planning can be configured later. It stays locked by default.</span></div><div class="about-stat"><b>RESEARCH GOAL</b><span>Compare recovery time, throughput, idle time, and order service across reproducible disruptions.</span></div><button class="button button-primary modal-done" value="close">Understood</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><b>Scenario updated</b><small>New plan is ready for review.</small></div>
+  <script src="app.js"></script>
+</body>
+</html>
